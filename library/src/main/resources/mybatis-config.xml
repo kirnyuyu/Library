@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+
+ 	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL" />
+ 	</settings>
+ 	<!-- 
+ 	<typeAliases>
+ 		<typeAlias type="com.kh.hondimoyeong.course.model.vo.Course" alias="course"/>
+ 		<typeAlias type="com.kh.hondimoyeong.course.model.vo.CourseFile" alias="courseFile" />
+ 		
+ 		<typeAlias type="com.kh.hondimoyeong.cs.model.vo.Notice" alias="notice" />
+ 		<typeAlias type="com.kh.hondimoyeong.cs.model.vo.Faq" alias="faq" />
+		<typeAlias type="com.kh.hondimoyeong.companion.model.vo.Companion" alias="companion" /> 
+ 		<typeAlias type="com.kh.hondimoyeong.companion.model.vo.CompanionReply" alias="companionReply" />
+ 		<typeAlias type="com.kh.hondimoyeong.review.model.vo.Review" alias="review" />
+ 		<typeAlias type="com.kh.hondimoyeong.review.model.vo.ReviewComment" alias="reviewComment" />
+ 		<typeAlias type="com.kh.hondimoyeong.review.model.vo.ReviewImg" alias="reviewImg" />
+ 		<typeAlias type="com.kh.hondimoyeong.event.model.vo.Event" alias="event" />
+ 		<typeAlias type="com.kh.hondimoyeong.event.model.vo.EventImg" alias="eventImg" />
+ 		
+ 		<typeAlias type="com.kh.hondimoyeong.member.model.vo.Member" alias="member"/>
+ 		<typeAlias type="com.kh.hondimoyeong.member.model.vo.CompanionMember" alias="companionMember"/>
+ 		
+ 		<typeAlias type="com.kh.hondimoyeong.experience.model.vo.Experience" alias="experience"/>
+ 		
+ 		<typeAlias type="com.kh.hondimoyeong.cs.model.vo.Customer" alias="customer" />
+ 		
+ 		<typeAlias type="com.kh.hondimoyeong.experience.model.vo.Exreview" alias="exreview"/>
+ 	</typeAliases>
+
+	<mappers>
+		<mapper resource="mapper/course-mapper.xml"/>
+		<mapper resource="mapper/notice-mapper.xml"/>
+		<mapper resource="mapper/member-mapper.xml"/>		
+		<mapper resource="mapper/member-companion-mapper.xml"/>	
+		<mapper resource="mapper/companion-mapper.xml"/>
+		<mapper resource="mapper/experience-mapper.xml"/>
+		<mapper resource="mapper/review-mapper.xml"/>
+		<mapper resource="mapper/customer-mapper.xml"/>
+		<mapper resource="mapper/event-mapper.xml"/>
+	</mappers>
+ 	 -->
+ </configuration>

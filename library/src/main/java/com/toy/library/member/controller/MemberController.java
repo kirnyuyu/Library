@@ -24,7 +24,6 @@ public class MemberController {
 		return "member/join";
 	}
 	
-	// 테스트 중
 	@ResponseBody
 	@GetMapping("idCheck.member")
 	public String idCheck(String checkId) {

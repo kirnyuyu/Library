@@ -6,6 +6,15 @@
 <mapper namespace="memberMapper">
 
 
+	<select id="idCheck" parameterType="string" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER
+		WHERE
+			USER_ID = #{ checkId }
+	</select>
+
 
 
 </mapper>

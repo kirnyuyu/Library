@@ -133,6 +133,52 @@
 
     </div> <!-- content -->
     
+    <script>
+    function idValidateInput(input) {
+        input.value = input.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    $(function() {
+        const $idInput = $('[name = "userId"]');
+        const $idCheckResult = $('#idCheckResult');
+        const $joinSubmit = $('#joinBtn');
+        
+        function validateForm() {
+        	const isIdValid = $idCheckResult.text() == '사용 가능한 아이디입니다.';
+        	
+        	return idCheckResult;
+        }
+
+        $joinSubmit.attr('disabled', true);
+
+        $idInput.keyup(function(){
+            const inputVal = $idInput.val();
+
+            if(inputVal.length >= 5){
+                $.ajax({
+                    url : 'idCheck.member',
+                    data : {checkId : inputVal},
+                    success : function(result) {
+                        if(result.substr(4) == 'N') {
+                            $idCheckResult.show().css('color', 'red').text('이미 사용중인 아이디 입니다.');
+                        } else {
+                            $idCheckResult.show().css('color', '#666666').text('사용 가능한 아이디 입니다.');
+                        }
+                    },
+                    error : function() {
+                        console.log('아이디 중복 체크 실패');
+                    }
+                });
+            } else{
+                $idCheckResult.hide();
+                $joinSubmit.attr('disabled', true);
+            }
+        })
+    });
+
+	</script>
+    
+    
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 

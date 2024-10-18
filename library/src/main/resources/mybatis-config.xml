@@ -7,6 +7,16 @@
  	<settings>
  		<setting name="jdbcTypeForNull" value="NULL" />
  	</settings>
+ 	
+ 	<typeAliases>
+ 		<typeAlias type="com.toy.library.member.model.vo.Member" alias="member"/>
+ 	</typeAliases>
+ 	
+ 	<mappers>
+ 		<mapper resource="mapper/member-mapper.xml"/>
+ 	</mappers>
+ 	
+ 	
  	<!-- 
  	<typeAliases>
  		<typeAlias type="com.kh.hondimoyeong.course.model.vo.Course" alias="course"/>

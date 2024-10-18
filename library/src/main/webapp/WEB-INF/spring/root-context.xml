@@ -45,6 +45,8 @@
 		</property>
 	</bean>
 	-->
+	
+	<mybatis-spring:scan base-package="com.toy.library.member.model.repository"/>
 <!--
 	<mybatis-spring:scan base-package="com.kh.hondimoyeong.course.model.repository"/>
 	<mybatis-spring:scan base-package="com.kh.hondimoyeong.companion.model.dao"/>

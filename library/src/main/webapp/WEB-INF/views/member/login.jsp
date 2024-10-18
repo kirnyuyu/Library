@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,8 @@
 	#content{
 	    width: 1200px;
 	    margin: 0 auto;
-	    margin-top: 40px;
-	    margin-bottom: 40px;
+	    margin-top: 60px;
+	    margin-bottom: 60px;
 	}
 	
 	.loginBox{
@@ -83,6 +84,11 @@
 	    margin-right: 10px; /* 리스트 항목 간의 간격 */
 	}
 	
+	.findBox > li > a {
+		text-decoration: none;
+		color: #797979;
+	}
+	
 	.findBox li::before {
 	    content: "|";
 	    margin-right: 10px;
@@ -96,6 +102,8 @@
 
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <div id="content">
         <div class="loginBox">
@@ -117,13 +125,16 @@
             </form>
 
             <ul class="findBox">
-                <li>회원가입</li>
-                <li>아이디 찾기</li>
-                <li>비밀번호 찾기</li>
+                <li><a href="${path}/join">회원가입</a></li>
+                <li><a href="${path}/findId">아이디 찾기</a></li>
+                <li><a href="${path}/findPwd">비밀번호 찾기</a></li>
             </ul>
         </div>
 
     </div> <!-- content -->
+    
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
 
 </body>
 </html>

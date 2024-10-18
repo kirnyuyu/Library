@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,9 +119,9 @@
         <div class="header_info">
             <ul class="menubar_info">
                 <li class="menu_info"><a href="${path}/login">로그인</a></li>
-                <li class="menu_info">회원가입</li>
-                <li class="menu_info">마이페이지</li>
-                <li class="menu_info">관리자페이지</li>
+                <li class="menu_info"><a href="${path}/join">회원가입</a></li>
+                <li class="menu_info"><a href="${path}/myPage">마이페이지</a></li>
+                <li class="menu_info"><a href="${path}/admin">관리자</a></li>
             </ul>
         </div>
     </div>

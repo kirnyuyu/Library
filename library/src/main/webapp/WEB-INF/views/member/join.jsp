@@ -72,6 +72,7 @@
 	    margin-bottom: 14px;
 	    padding-left: 10px;
 	    color: red;
+	    display: block;
 	}
 </style>
 
@@ -88,7 +89,7 @@
                 <!-- 아이디 -->
                 <div class="idBox">
                     <div class="inputBox"><input type="text" class="inputForm" name="userId" maxlength="15" placeholder="아이디" required oninput="idValidateInput(this)"></div>
-                    <div id="idCheckResult">이미 사용중인 아이디 입니다.</div>
+                    <div id="idCheckResult"></div>
                 </div>
 
                 <!-- 비밀번호 -->
@@ -126,6 +127,50 @@
         </div>
 
     </div> <!-- content -->
+    
+	<script>
+	function idValidateInput(input) {
+	    input.value = input.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+	}
+	
+	$(function() {
+	    const $idInput = $('[name="userId"]');
+	    const $idCheckResult = $('#idCheckResult');
+	    const $joinSubmit = $('#joinBtn');
+	
+	    $joinSubmit.attr('disabled', true);
+	
+	    $idInput.keyup(function() {
+	        const inputVal = $idInput.val();
+	
+	        if (inputVal.length >= 5) {
+	            $.ajax({
+	                url: 'idCheck.member',
+	                data: { checkId: inputVal },
+	                success: function(result) {
+	                    if (result.substr(4) == 'N') {
+	                        $idCheckResult.show().css('color', 'red').text('이미 사용중인 아이디 입니다.');
+	                        $joinSubmit.attr('disabled', true).css('background-color', '#797979');
+	                    } else {
+	                        $idCheckResult.show().css('color', '#666666').text('사용 가능한 아이디 입니다.');
+	                        $joinSubmit.attr('disabled', false).css('background-color', ''); // 활성화
+	                    }
+	                },
+	                error: function() {
+	                    console.log('아이디 중복 체크 실패');
+	                }
+	            });
+	        } else if (inputVal.length == 0) {
+	        	$idCheckResult.show().text('');
+	        	$joinSubmit.attr('disabled', true);
+	        } else {
+	        	$idCheckResult.show().css('color', 'red').text('5자 이상 입력해 주세요.');
+	            $joinSubmit.attr('disabled', true);
+	        }
+	    });
+	});
+	</script>
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

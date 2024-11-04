@@ -130,17 +130,22 @@
     </div> <!-- content -->
     
 	<script>
+	
+	// 정규 표현식
 	function idValidateInput(input) {
 	    input.value = input.value.toLowerCase().replace(/[^a-z0-9]/g, '');
 	}
 	
+	// 내용 검사
 	$(function() {
+		// 변수
 	    const $idInput = $('[name="userId"]');
 	    const $idCheckResult = $('#idCheckResult');
 	    const $joinSubmit = $('#joinBtn');
 	
 	    $joinSubmit.attr('disabled', true);
 	
+	    // 아이디 중복 체크
 	    $idInput.keyup(function() {
 	        const inputVal = $idInput.val();
 	

@@ -174,6 +174,8 @@
 	            $joinSubmit.attr('disabled', true);
 	        }
 	    });
+	    
+	    
 	});
 	</script>
 

@@ -138,7 +138,8 @@
 	
 	// 내용 검사
 	$(function() {
-		// 변수
+		
+		// 변수 선언
 	    const $idInput = $('[name="userId"]');
 	    const $idCheckResult = $('#idCheckResult');
 	    const $joinSubmit = $('#joinBtn');
@@ -187,7 +188,7 @@
 	    // 이메일 체크
 	    
 	    
-	});
+	}); // 내용 검사 끝
 	</script>
 
 

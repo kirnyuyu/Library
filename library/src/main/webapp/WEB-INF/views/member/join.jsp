@@ -64,13 +64,13 @@
 	    font-weight: bold;
 	}
 	
-	#idCheckResult{
+	#idCheckResult, #pwdCheckResult{
 	    width: 300px;
 	    height: 19px;
 	    font-size: 13px;
 	    margin-top: 5px;
 	    margin-bottom: 14px;
-	    padding-left: 10px;
+	    padding-left: 5px;
 	    color: red;
 	    display: block;
 	}
@@ -95,8 +95,8 @@
 
                 <!-- 비밀번호 -->
                 <div class="pwdBox">
-                    <div class="inputBox"><input type="password" class="inputForm" name="userPwd" maxlength="100" placeholder="비밀번호" required oninput="pwdValidateInput(this)"></div>
-                    <div id="idCheckResult"></div>
+                    <div class="inputBox"><input type="password" class="inputForm" name="userPwd" maxlength="20" placeholder="비밀번호" required oninput="pwdValidateInput(this)"></div>
+                    <div id="pwdCheckResult"></div>
                 </div>
                 <!-- 이름 -->
                 <div class="nameBox">
@@ -130,76 +130,75 @@
     </div> <!-- content -->
     
 	<script>
-	
-	// 정규 표현식
-	
-	// 아이디
-	function idValidateInput(input) {
-	    const idCheckResult = document.getElementById('idCheckResult'); // idCheckResult 요소
-	    const hasSpecialChar = /[^a-z0-9]/i.test(input.value); // 특수문자 검사
-	
-	    if (hasSpecialChar) {
-	        idCheckResult.style.display = 'block';
-	        idCheckResult.style.color = 'red';
-	        idCheckResult.textContent = '영문 소문자, 숫자만 사용 가능합니다.';
-	    } else {
-	        idCheckResult.textContent = '';
-	    }
-	}
-	
-	// 비밀번호
-	function pwdValidateInput(input){
-		input.value = input.value.toLowerCase().re
-	}
-	
-	// 내용 검사
 	$(function() {
 		
 		// 변수 선언
 	    const $idInput = $('[name="userId"]');
 	    const $idCheckResult = $('#idCheckResult');
+	    const $pwdInput = $('[name="userPwd"]');
+	    const $pwdCheckResult = $('#pwdCheckResult');
 	    const $joinSubmit = $('#joinBtn');
+	    
+	    // 비밀번호 정규 포현식
+		const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
 	
-	    $joinSubmit.attr('disabled', true);
+		// 버튼 기본 비활성화
+	    $joinSubmit.prop('disabled', true);
 	
 	    // 아이디 중복 체크
-		$idInput.keyup(function() {
-		    const inputVal = $idInput.val();
-		
-		    if (/[^a-z0-9]/.test(inputVal)) { // 특수문자 검사
-		        $idCheckResult.show().css('color', 'red').text('영문 소문자, 숫자만 사용 가능합니다.');
-		        $joinSubmit.attr('disabled', true).css('background-color', '#797979');
-		    } else if (inputVal.length >= 5) { 
-		        // 5자 이상이고 특수문자가 없는 경우 Ajax 요청
-		        $.ajax({
-		            url: 'idCheck.member',
-		            data: { checkId: inputVal },
-		            success: function(result) {
-		                if (result.substr(4) == 'N') {
-		                    $idCheckResult.show().css('color', 'red').text('이미 사용중인 아이디입니다.');
-		                    $joinSubmit.attr('disabled', true).css('background-color', '#797979');
-		                } else {
-		                    $idCheckResult.show().css('color', '#666666').text('사용 가능한 아이디입니다.');
-		                    $joinSubmit.attr('disabled', false).css('background-color', ''); // 활성화
-		                }
-		            },
-		            error: function() {
-		                console.log('아이디 중복 체크 실패');
-		            }
-		        });
-		    } else if (inputVal.length == 0) {
-		        // 아무것도 입력하지 않은 경우
-		        $idCheckResult.show().text('');
-		        $joinSubmit.attr('disabled', true);
-		    } else {
-		        // 5자 미만 입력한 경우
-		        $idCheckResult.show().css('color', 'red').text('5자 이상 입력해 주세요.');
-		        $joinSubmit.attr('disabled', true);
-		    }
-		});
+	    $idInput.on('input', function() {
+	        const inputVal = $idInput.val();
+	
+	        // 특수문자 검사 (영문 소문자, 숫자만 허용)
+	        const idInputCheck = /[^a-z0-9]/.test(inputVal);
+	
+	        if (idInputCheck) {
+	            $idCheckResult.show().css('color', 'red').text('영문 소문자, 숫자만 사용 가능합니다.');
+	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	        } else if (inputVal.length >= 5) {
+	            // 5자 이상이고 특수문자가 없는 경우 Ajax 요청
+	            $.ajax({
+	                url: 'idCheck.member',
+	                data: { checkId: inputVal },
+	                success: function(result) {
+	                    if (result.substr(4) == 'N') {
+	                        $idCheckResult.show().css('color', 'red').text('이미 사용중인 아이디입니다.');
+	                        $joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	                    } else {
+	                        $idCheckResult.show().css('color', '#666666').text('사용 가능한 아이디입니다.');
+	                        $joinSubmit.prop('disabled', false).css('background-color', '');
+	                    }
+	                },
+	                error: function() {
+	                    console.log('아이디 중복 체크 실패');
+	                }
+	            });
+	        } else if (inputVal.length == 0) {
+	            $idCheckResult.show().text('');
+	            $joinSubmit.prop('disabled', true);
+	        } else {
+	            $idCheckResult.show().css('color', 'red').text('5자 이상 입력해 주세요.');
+	            $joinSubmit.prop('disabled', true);
+	        }
+	    });
 	    
 	    // 비밀번호 체크
-	    
+	    $pwdInput.on('input', function() {
+	        const passwordValue = $pwdInput.val(); // 입력된 비밀번호 값
+	        
+	        if (passwordValue.length < 8) {
+	            $pwdCheckResult.show().css('color', 'red').text('비밀번호는 최소 8자 이상이어야 합니다.');
+	            $joinSubmit.prop('disabled', true);
+	        }
+	        else if (!passwordRegex.test(passwordValue)) {
+	            $pwdCheckResult.show().css('color', 'red').text('비밀번호는 대문자, 숫자, 특수문자를 포함해야 합니다.');
+	            $joinSubmit.prop('disabled', true);
+	        }
+	        else {
+	            $pwdCheckResult.show().text('');
+	            $joinSubmit.prop('disabled', false);
+	        }
+	    });
 	    
 	    // 생년월일 체크
 	    

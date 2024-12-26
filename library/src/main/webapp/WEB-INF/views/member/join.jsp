@@ -112,7 +112,7 @@
 
                 <!-- 연락처 -->
                 <div class="phoneBox">
-                    <div class="inputBox"><input type="text" class="inputForm" name="phone" minlength="11" maxlength="11" placeholder="연락처 ( - 제외 입력)" required></div>
+                    <div class="inputBox"><input type="text" class="inputForm" name="phone" minlength="10" maxlength="11" placeholder="연락처 ( - 제외 입력)" required></div>
                     <div id="phoneCheckResult"></div>
                 </div>
 
@@ -150,6 +150,7 @@
 		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$^*])[a-zA-Z\d!@#$^*]{8,}$/;
 		const nameRegex = /^[가-힣]{1,4}$/;
 		const birthRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
+		const phoneRegex = /^(010\d{8}|01[6-9]\d{7})$/;
 	
 		// 버튼 기본 비활성화
 	    $joinSubmit.prop('disabled', true);
@@ -225,13 +226,11 @@
 	    		$nameCheckResult.show().css('color', '#666666').text('');
 	    		$joinSubmit.prop('disabled', false);
 	    	}
-	    	
 	    });
 	    
 	    // 생년월일 체크
 	    $birthInput.on('input', function(){
 	    	const birthValue = $birthInput.val();
-	    	console.log(`현재 입력값: ${birthValue}, 길이: ${birthValue.length}`);
 	    	
 	    	if(birthValue.length < 8) {
 	    		$birthCheckResult.show().css('color', 'red').text('생년월일은 8자로 입력해 주세요.');
@@ -252,7 +251,26 @@
 	    });
 	    
 	    //연락처 체크
-	    
+	    $phoneInput.on('input', function(){
+	    	const phoneValue = $phoneInput.val();
+	    	
+	    	if(phoneValue.length < 10 || phoneValue.length > 11) {
+	    		$phoneCheckResult.show().css('color', 'red').text('연락처는 10~11자로 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else if (!/^\d{10,11}$/.test(phoneValue)) {
+	    		$phoneCheckResult.show().css('color', 'red').text('숫자만 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else if (!phoneRegex.test(phoneValue)) {
+	    		$phoneCheckResult.show().css('color', 'red').text('유효한 연락처를 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else {
+	    		$phoneCheckResult.show().css('color', '#666666').text('');
+	    		$joinSubmit.prop('disabled', false);
+	    	}
+	    });
 	    
 	    // 이메일 체크
 	    

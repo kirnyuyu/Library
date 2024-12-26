@@ -139,12 +139,17 @@
 	    const $pwdCheckResult = $('#pwdCheckResult');
 	    const $nameInput = $('[name="userName"]');
 	    const $nameCheckResult = $('#nameCheckResult');
+	    const $birthInput = $('[name="birthday"]');
+	    const $birthCheckResult = $('#birthCheckResult');
+	    const $phoneInput = $('[name="phone"]');
+	    const $phoneCheckResult = $('#phoneCheckResult');
 	    
 	    const $joinSubmit = $('#joinBtn');
 	    
 	    // 정규 표현식
 		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$^*])[a-zA-Z\d!@#$^*]{8,}$/;
 		const nameRegex = /^[가-힣]{1,4}$/;
+		const birthRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
 	
 		// 버튼 기본 비활성화
 	    $joinSubmit.prop('disabled', true);
@@ -204,6 +209,7 @@
 	        }
 	    });
 	    
+	    // 이름 체크
 	    $nameInput.on('input', function(){
 	    	const nameValue = $nameInput.val();
 	    	
@@ -212,7 +218,7 @@
 	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	    	}
 	    	else if (!nameRegex.test(nameValue)) {
-	    		$nameCheckResult.show().css('color', 'red').text('한글 이름만 입력 가능합니다.');
+	    		$nameCheckResult.show().css('color', 'red').text('한글 이름만 입력해 주세요.');
 	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	    	}
 	    	else {
@@ -223,7 +229,27 @@
 	    });
 	    
 	    // 생년월일 체크
-	    
+	    $birthInput.on('input', function(){
+	    	const birthValue = $birthInput.val();
+	    	console.log(`현재 입력값: ${birthValue}, 길이: ${birthValue.length}`);
+	    	
+	    	if(birthValue.length < 8) {
+	    		$birthCheckResult.show().css('color', 'red').text('생년월일은 8자로 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else if (!/^\d{8}$/.test(birthValue)) {
+	    		$birthCheckResult.show().css('color', 'red').text('숫자만 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else if (!birthRegex.test(birthValue)) {
+	    		$birthCheckResult.show().css('color', 'red').text('유효한 생년월일을 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background0color', '#797979');
+	    	}
+	    	else {
+	    		$birthCheckResult.show().css('color', '#666666').text('');
+	    		$joinSubmit.prop('disabled', false);
+	    	}
+	    });
 	    
 	    //연락처 체크
 	    

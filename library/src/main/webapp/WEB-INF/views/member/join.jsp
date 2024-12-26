@@ -64,7 +64,7 @@
 	    font-weight: bold;
 	}
 	
-	#idCheckResult, #pwdCheckResult{
+	#idCheckResult, #pwdCheckResult, #nameCheckResult, #birthCheckResult, #phoneCheckResult, #emailCheckResult{
 	    width: 300px;
 	    height: 19px;
 	    font-size: 13px;
@@ -89,37 +89,37 @@
 
                 <!-- 아이디 -->
                 <div class="idBox">
-                    <div class="inputBox"><input type="text" class="inputForm" name="userId" maxlength="15" placeholder="아이디" required oninput="idValidateInput(this)"></div>
+                    <div class="inputBox"><input type="text" class="inputForm" name="userId" maxlength="15" placeholder="아이디" required></div>
                     <div id="idCheckResult"></div>
                 </div>
 
                 <!-- 비밀번호 -->
                 <div class="pwdBox">
-                    <div class="inputBox"><input type="password" class="inputForm" name="userPwd" maxlength="20" placeholder="비밀번호" required oninput="pwdValidateInput(this)"></div>
+                    <div class="inputBox"><input type="password" class="inputForm" name="userPwd" maxlength="20" placeholder="비밀번호" required></div>
                     <div id="pwdCheckResult"></div>
                 </div>
                 <!-- 이름 -->
                 <div class="nameBox">
-                    <div class="inputBox"><input type="text" class="inputForm" name="userName" minlength="2" maxlength="10" placeholder="이름" required></div>
-                    <div id="idCheckResult"></div>
+                    <div class="inputBox"><input type="text" class="inputForm" name="userName" minlength="2" maxlength="4" placeholder="이름" required></div>
+                    <div id="nameCheckResult"></div>
                 </div>
 
                 <!-- 생년월일 -->
                 <div class="birthdayBox">
                     <div class="inputBox"><input type="text" class="inputForm" name="birthday" minlength="8" maxlength="8" placeholder="생년월일 (8자리)" required></div>
-                    <div id="idCheckResult"></div>
+                    <div id="birthCheckResult"></div>
                 </div>
 
                 <!-- 연락처 -->
                 <div class="phoneBox">
                     <div class="inputBox"><input type="text" class="inputForm" name="phone" minlength="11" maxlength="11" placeholder="연락처 ( - 제외 입력)" required></div>
-                    <div id="idCheckResult"></div>
+                    <div id="phoneCheckResult"></div>
                 </div>
 
                 <!-- 이메일 -->
                 <div class="emailBox">
                     <div class="inputBox"><input type="text" class="inputForm" name="email" maxlength="100" placeholder="이메일" required></div>
-                    <div id="idCheckResult">중복 된 이메일입니다.</div>
+                    <div id="emailCheckResult">중복 된 이메일입니다.</div>
                 </div>
                 <div class="btnBox">
                     <button type="submit" id="joinBtn">회원가입</button>
@@ -137,10 +137,14 @@
 	    const $idCheckResult = $('#idCheckResult');
 	    const $pwdInput = $('[name="userPwd"]');
 	    const $pwdCheckResult = $('#pwdCheckResult');
+	    const $nameInput = $('[name="userName"]');
+	    const $nameCheckResult = $('#nameCheckResult');
+	    
 	    const $joinSubmit = $('#joinBtn');
 	    
-	    // 비밀번호 정규 포현식
+	    // 정규 표현식
 		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$^*])[a-zA-Z\d!@#$^*]{8,}$/;
+		const nameRegex = /^[가-힣]{1,4}$/;
 	
 		// 버튼 기본 비활성화
 	    $joinSubmit.prop('disabled', true);
@@ -198,6 +202,24 @@
 	            $pwdCheckResult.show().css('color', '#666666').text('사용 가능한 비밀번호 입니다.');
 	            $joinSubmit.prop('disabled', false);
 	        }
+	    });
+	    
+	    $nameInput.on('input', function(){
+	    	const nameValue = $nameInput.val();
+	    	
+	    	if(nameValue.length < 2) {
+	    		$nameCheckResult.show().css('color', 'red').text('이름은 최소 2자 이상이어야 합니다.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else if (!nameRegex.test(nameValue)) {
+	    		$nameCheckResult.show().css('color', 'red').text('한글 이름만 입력 가능합니다.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else {
+	    		$nameCheckResult.show().css('color', '#666666').text('');
+	    		$joinSubmit.prop('disabled', false);
+	    	}
+	    	
 	    });
 	    
 	    // 생년월일 체크

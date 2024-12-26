@@ -119,7 +119,7 @@
                 <!-- 이메일 -->
                 <div class="emailBox">
                     <div class="inputBox"><input type="text" class="inputForm" name="email" maxlength="100" placeholder="이메일" required></div>
-                    <div id="emailCheckResult">중복 된 이메일입니다.</div>
+                    <div id="emailCheckResult"></div>
                 </div>
                 <div class="btnBox">
                     <button type="submit" id="joinBtn">회원가입</button>
@@ -143,6 +143,8 @@
 	    const $birthCheckResult = $('#birthCheckResult');
 	    const $phoneInput = $('[name="phone"]');
 	    const $phoneCheckResult = $('#phoneCheckResult');
+	    const $emailInput = $('[name="email"]');
+	    const $emailCheckResult = $('#emailCheckResult');
 	    
 	    const $joinSubmit = $('#joinBtn');
 	    
@@ -151,6 +153,7 @@
 		const nameRegex = /^[가-힣]{1,4}$/;
 		const birthRegex = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;
 		const phoneRegex = /^(010\d{8}|01[6-9]\d{7})$/;
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	
 		// 버튼 기본 비활성화
 	    $joinSubmit.prop('disabled', true);
@@ -185,10 +188,10 @@
 	            });
 	        } else if (inputVal.length == 0) {
 	            $idCheckResult.show().text('');
-	            $joinSubmit.prop('disabled', true);
+	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	        } else {
 	            $idCheckResult.show().css('color', 'red').text('5자 이상 입력해 주세요.');
-	            $joinSubmit.prop('disabled', true);
+	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	        }
 	    });
 	    
@@ -206,7 +209,7 @@
 	        }
 	        else {
 	            $pwdCheckResult.show().css('color', '#666666').text('사용 가능한 비밀번호 입니다.');
-	            $joinSubmit.prop('disabled', false);
+	            $joinSubmit.prop('disabled', false).css('background-color', '');
 	        }
 	    });
 	    
@@ -224,7 +227,7 @@
 	    	}
 	    	else {
 	    		$nameCheckResult.show().css('color', '#666666').text('');
-	    		$joinSubmit.prop('disabled', false);
+	    		$joinSubmit.prop('disabled', false).css('background-color', '');
 	    	}
 	    });
 	    
@@ -242,11 +245,11 @@
 	    	}
 	    	else if (!birthRegex.test(birthValue)) {
 	    		$birthCheckResult.show().css('color', 'red').text('유효한 생년월일을 입력해 주세요.');
-	    		$joinSubmit.prop('disabled', true).css('background0color', '#797979');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	    	}
 	    	else {
 	    		$birthCheckResult.show().css('color', '#666666').text('');
-	    		$joinSubmit.prop('disabled', false);
+	    		$joinSubmit.prop('disabled', false).css('background-color', '');
 	    	}
 	    });
 	    
@@ -268,13 +271,23 @@
 	    	}
 	    	else {
 	    		$phoneCheckResult.show().css('color', '#666666').text('');
-	    		$joinSubmit.prop('disabled', false);
+	    		$joinSubmit.prop('disabled', false).css('background-color', '');
 	    	}
 	    });
 	    
 	    // 이메일 체크
-	    
-	    
+	    $emailInput.on('input', function(){
+	    	const emailValue = $emailInput.val();
+	    	
+	    	if(!emailRegex.test(emailValue)) {
+	    		$emailCheckResult.show().css('color', 'red').text('유효한 이메일 주소를 입력해 주세요.');
+	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    	}
+	    	else {
+	    		$emailCheckResult.show().css('color', '#666666').text('');
+	    		$joinSubmit.prop('disabled', false).css('background-color', '');
+	    	}
+	    });
 	}); // 내용 검사 끝
 	</script>
 

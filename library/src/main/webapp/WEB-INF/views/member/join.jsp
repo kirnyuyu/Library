@@ -16,7 +16,7 @@
 	}
 	
 	.loginBox{
-	    width: 500px;
+	    width: 600px;
 	    margin: 0 auto;
 	    border: 1px solid #c5ccd2;
 	    border-radius: 20px;
@@ -69,7 +69,7 @@
 	    height: 19px;
 	    font-size: 13px;
 	    margin-top: 5px;
-	    margin-bottom: 14px;
+	    margin-bottom: 30px;
 	    padding-left: 5px;
 	    color: red;
 	    display: block;
@@ -140,7 +140,7 @@
 	    const $joinSubmit = $('#joinBtn');
 	    
 	    // 비밀번호 정규 포현식
-		const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$^*])[a-zA-Z\d!@#$^*]{8,}$/;
 	
 		// 버튼 기본 비활성화
 	    $joinSubmit.prop('disabled', true);
@@ -188,14 +188,14 @@
 	        
 	        if (passwordValue.length < 8) {
 	            $pwdCheckResult.show().css('color', 'red').text('비밀번호는 최소 8자 이상이어야 합니다.');
-	            $joinSubmit.prop('disabled', true);
+	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	        }
 	        else if (!passwordRegex.test(passwordValue)) {
-	            $pwdCheckResult.show().css('color', 'red').text('비밀번호는 대문자, 숫자, 특수문자를 포함해야 합니다.');
-	            $joinSubmit.prop('disabled', true);
+	            $pwdCheckResult.show().css('color', 'red').text('비밀번호는 하나 이상의 대문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.');
+	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	        }
 	        else {
-	            $pwdCheckResult.show().text('');
+	            $pwdCheckResult.show().css('color', '#666666').text('사용 가능한 비밀번호 입니다.');
 	            $joinSubmit.prop('disabled', false);
 	        }
 	    });

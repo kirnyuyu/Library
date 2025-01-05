@@ -16,7 +16,7 @@
 	}
 	
 	.loginBox{
-	    width: 800px;
+	    width: 700px;
 	    margin: 0 auto;
 	    border: 1px solid #c5ccd2;
 	    border-radius: 20px;
@@ -36,7 +36,7 @@
 	}
 	
 	.inputBox{
-	    width: 300px;
+	    width: 400px;
 	}
 	
 	.inputForm{

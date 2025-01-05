@@ -116,14 +116,39 @@
 
 	<c:set var="path" value="${ pageContext.request.contextPath }" scope="session"/>
 	
+	<c:if test="${ not empty alertMsg }">
+        <script>
+            alert('${ alertMsg }');
+        </script>
+        <c:remove var="alertMsg" scope="session" />
+    </c:if>
+	
     <div id="header_top">
         <div class="header_info">
-            <ul class="menubar_info">
-                <li class="menu_info"><a href="${path}/login">로그인</a></li>
-                <li class="menu_info"><a href="${path}/join">회원가입</a></li>
-                <li class="menu_info"><a href="${path}/myPage">마이페이지</a></li>
-                <li class="menu_info"><a href="${path}/admin">관리자</a></li>
-            </ul>
+        	<c:choose>
+        		<c:when test="${ empty sessionScope.loginUser }">
+		            <ul class="menubar_info">
+		                <li class="menu_info"><a href="${path}/login">로그인</a></li>
+		                <li class="menu_info"><a href="${path}/join">회원가입</a></li>
+		                <li class="menu_info"><a href="${path}/myPage">마이페이지</a></li>
+		            </ul>
+            	</c:when>
+            	<c:otherwise>
+            		<ul class="menubar_info">
+		                <li class="menu_info"><a href="${path}/login">로그아웃</a></li>
+		                <li class="menu_info"><a href="${path}/join">회원가입</a></li>
+		                <c:choose>
+		                	<c:when test="${ sessionScope.loginUser.status == 'C' }">
+			                	<li class="menu_info"><a href="${path}/myPage">마이페이지</a></li>
+			                </c:when>
+		                	
+		                	<c:when test="${ sessionScope.loginUser.status == 'A' }">
+			                	<li class="menu_info"><a href="${path}/admin">관리자</a></li>
+			                </c:when>
+			            </c:choose>
+		            </ul>
+            	</c:otherwise>
+            </c:choose>
         </div>
     </div>
     <div id="header">

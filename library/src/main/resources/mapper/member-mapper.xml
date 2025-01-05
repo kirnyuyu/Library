@@ -8,13 +8,53 @@
 
 	<select id="idCheck" parameterType="string" resultType="_int">
 		SELECT
-			COUNT(*)
-		FROM
-			MEMBER
-		WHERE
-			USER_ID = #{ checkId }
+			  COUNT(*)
+		  FROM
+			  MEMBER
+		 WHERE
+			  USER_ID = #{ checkId }
 	</select>
 
+	<select id="phoneCheck" parameterType="string" resultType="_int">
+		SELECT
+		      COUNT(*)
+		  FROM
+		      MEMBER
+		 WHERE
+		      PHONE = #{ phone }
+	</select>
+	
+	<select id="emailCheck" parameterType="string" resultType="_int">
+		SELECT
+		      COUNT(*)
+		  FROM
+		      MEMBER
+		 WHERE
+		      EMAIL = #{ email }
+	</select>
+	
+	<insert id="insert" parameterType="member">
+		INSERT
+		  INTO
+		      MEMBER
+		      (
+		      USER_NO,
+		      USER_NAME,
+		      USER_ID,
+		      USER_PWD,
+		      PHONE,
+		      EMAIL
+		      )
+		VALUES
+			  (
+			  SEQ_USER_NO.NEXTVAL,
+		      #{userName},
+		      #{userId},
+		      #{userPwd},
+		      #{phone},
+		      #{email}
+		      )
+	</insert>
 
 
 </mapper>

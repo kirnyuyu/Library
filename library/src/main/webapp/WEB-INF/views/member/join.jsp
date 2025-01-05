@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +85,7 @@
     <div id="content">
         <div class="loginBox">
             <div class="loginTitle">회원가입</div>
-            <form action="#">
+            <form action="insert.member" method="post">
 
                 <!-- 아이디 -->
                 <div class="idBox">
@@ -100,7 +100,7 @@
                 </div>
                 <!-- 이름 -->
                 <div class="nameBox">
-                    <div class="inputBox"><input type="text" class="inputForm" name="userName" minlength="2" maxlength="4" placeholder="이름" required></div>
+                    <div class="inputBox"><input type="text" class="inputForm" name="userName" maxlength="20" placeholder="이름" required></div>
                     <div id="nameCheckResult"></div>
                 </div>
 
@@ -253,27 +253,32 @@
 	    	}
 	    });
 	    
-	    //연락처 체크
-	    $phoneInput.on('input', function(){
-	    	const phoneValue = $phoneInput.val();
-	    	
-	    	if(phoneValue.length < 10 || phoneValue.length > 11) {
-	    		$phoneCheckResult.show().css('color', 'red').text('연락처는 10~11자로 입력해 주세요.');
-	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
-	    	}
-	    	else if (!/^\d{10,11}$/.test(phoneValue)) {
-	    		$phoneCheckResult.show().css('color', 'red').text('숫자만 입력해 주세요.');
-	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
-	    	}
-	    	else if (!phoneRegex.test(phoneValue)) {
-	    		$phoneCheckResult.show().css('color', 'red').text('유효한 연락처를 입력해 주세요.');
-	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
-	    	}
-	    	else {
-	    		$phoneCheckResult.show().css('color', '#666666').text('');
-	    		$joinSubmit.prop('disabled', false).css('background-color', '');
-	    	}
-	    });
+		// 연락처 체크
+		$phoneInput.on('input', function() {
+		    const phoneValue = $phoneInput.val();
+
+		    if (!phoneRegex.test(phoneValue)) {
+		        $phoneCheckResult.show().css('color', 'red').text('유효한 연락처를 입력해 주세요.');
+		        $joinSubmit.prop('disabled', true).css('background-color', '#797979');
+		        return;
+		    }
+		    $.ajax({
+		        url: 'phoneCheck.member',
+		        data: { phone: phoneValue },
+		        success: function(result) {
+		            if (result.substr(4) === 'N') {  // 이미 사용 중인 연락처
+		                $phoneCheckResult.show().css('color', 'red').text('이미 사용중인 연락처입니다.');
+		                $joinSubmit.prop('disabled', true).css('background-color', '#797979');
+		            } else {
+		                $phoneCheckResult.show().css('color', '#666666').text('');
+		                $joinSubmit.prop('disabled', false).css('background-color', '');
+		            }
+		        },
+		        error: function() {
+		            console.log('연락처 중복 체크 실패');
+		        }
+		    });
+		});
 	    
 	    // 이메일 체크
 	    $emailInput.on('input', function(){
@@ -282,13 +287,23 @@
 	    	if(!emailRegex.test(emailValue)) {
 	    		$emailCheckResult.show().css('color', 'red').text('유효한 이메일 주소를 입력해 주세요.');
 	    		$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    		return;
 	    	}
-	    	else {
-	    		$emailCheckResult.show().css('color', '#666666').text('');
-	    		$joinSubmit.prop('disabled', false).css('background-color', '');
-	    	}
+	    	$.ajax({
+	    		url: 'emailCheck.member',
+	    		data: { email : emailValue },
+	    		success: function(result) {
+	    			if (result.substr(4) === 'N') {
+	    				$emailCheckResult.show().css('color', 'red').text('이미 사용중인 이메일입니다.');
+	    				$joinSubmit.prop('disabled', true).css('background-color', '#797979');
+	    			} else {
+	    		    		$emailCheckResult.show().css('color', '#666666').text('');
+	    		    		$joinSubmit.prop('disabled', false).css('background-color', '');
+	    		    }
+	    		}
+	    	})
 	    });
-	}); // 내용 검사 끝
+	});
 	</script>
 
 

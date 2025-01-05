@@ -12,4 +12,6 @@ public interface MemberService {
 
 	int insert(Member member);
 
+	Member login(Member member);
+
 }

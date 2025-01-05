@@ -28,6 +28,12 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginUser");
+		return "redirect:/";
+	}
+	
 	@RequestMapping("join")
 	public String join() {
 		return "member/join";
@@ -65,5 +71,26 @@ public class MemberController {
 	    }
 		return mv;
 	}
+	
+	@PostMapping("login.member")
+	public ModelAndView login(Member member, HttpSession session, ModelAndView mv) {
+	    Member loginUser = memberService.login(member);
+
+	    if (loginUser != null) {
+	        if (bcryptPasswordEncoder.matches(member.getUserPwd(), loginUser.getUserPwd())) {
+	            session.setAttribute("loginUser", loginUser);
+	            mv.setViewName("redirect:/");
+	        } else {
+	            session.setAttribute("alertMsg", "아이디와 비밀번호를 확인해 주세요.");
+	            mv.setViewName("member/login");
+	        }
+	    } else {
+            session.setAttribute("alertMsg", "아이디와 비밀번호를 확인해 주세요.");
+            mv.setViewName("member/login");
+	    }
+
+	    return mv;
+	}
+
 
 }

@@ -36,4 +36,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.insert(sqlSession, member);
 	}
 
+	@Override
+	public Member login(Member member) {
+		return memberRepository.login(sqlSession, member);
+	}
+
 }

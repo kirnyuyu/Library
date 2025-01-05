@@ -24,4 +24,8 @@ public class MemberRepository {
 		return sqlSession.insert("memberMapper.insert", member);
 	}
 
+	public Member login(SqlSessionTemplate sqlSession, Member member) {
+		return sqlSession.selectOne("memberMapper.login", member);
+	}
+
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -108,15 +107,15 @@
     <div id="content">
         <div class="loginBox">
             <div class="loginTitle">로그인</div>
-            <form action="#">
+            <form action="login.member" method="post">
                 <div class="idBox">
                     <div class="inputBox">
-                        <input type="text" class="inputForm" maxlength="15" placeholder="아이디">
+                        <input type="text" class="inputForm" name="userId" maxlength="15" placeholder="아이디">
                     </div>
                 </div>
                 <div class="pwdBox">
                     <div class="inputBox">
-                        <input type="password" class="inputForm" maxlength="100" placeholder="비밀번호 ">
+                        <input type="password" class="inputForm" name="userPwd" maxlength="100" placeholder="비밀번호 ">
                     </div>
                 </div>
                 <div class="btnBox">

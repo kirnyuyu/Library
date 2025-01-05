@@ -135,8 +135,7 @@
             	</c:when>
             	<c:otherwise>
             		<ul class="menubar_info">
-		                <li class="menu_info"><a href="${path}/login">로그아웃</a></li>
-		                <li class="menu_info"><a href="${path}/join">회원가입</a></li>
+		                <li class="menu_info"><a href="${path}/logout">로그아웃</a></li>
 		                <c:choose>
 		                	<c:when test="${ sessionScope.loginUser.status == 'C' }">
 			                	<li class="menu_info"><a href="${path}/myPage">마이페이지</a></li>

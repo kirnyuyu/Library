@@ -78,9 +78,14 @@
 	    color: #797979;
 	}
 	
+	.findBox > li > a:hover{
+		color: #67916A;
+	}
+	
 	.findBox > li {
 	    list-style: none;
-	    margin-right: 10px; /* 리스트 항목 간의 간격 */
+	    margin-right: 10px;
+	    font-weight: bold;
 	}
 	
 	.findBox > li > a {

@@ -16,7 +16,7 @@
 	}
 	
 	.loginBox{
-	    width: 600px;
+	    width: 800px;
 	    margin: 0 auto;
 	    border: 1px solid #c5ccd2;
 	    border-radius: 20px;
@@ -31,7 +31,7 @@
 	}
 	
 	.idBox, .pwdBox, .btnBox, .nameBox, .birthdayBox, .phoneBox, .emailBox{
-	    width: 300px;
+	    width: 400px;
 	    margin: 0 auto;
 	}
 	
@@ -40,8 +40,8 @@
 	}
 	
 	.inputForm{
-	    width: 300px;
-	    height: 45px;
+	    width: 400px;
+	    height: 60px;
 	    border: 1px solid #c5ccd2;
 	    border-radius: 10px;
 	    padding: 0px 15px;
@@ -54,8 +54,8 @@
 	}
 	
 	#joinBtn{
-	    width: 300px;
-	    height: 50px;
+	    width: 400px;
+	    height: 60px;
 	    border: none;
 	    border-radius: 10px;
 	    color: white;
@@ -65,11 +65,11 @@
 	}
 	
 	#idCheckResult, #pwdCheckResult, #nameCheckResult, #birthCheckResult, #phoneCheckResult, #emailCheckResult{
-	    width: 300px;
+	    width: 400px;
 	    height: 19px;
 	    font-size: 13px;
 	    margin-top: 5px;
-	    margin-bottom: 30px;
+	    margin-bottom: 20px;
 	    padding-left: 5px;
 	    color: red;
 	    display: block;
@@ -204,7 +204,7 @@
 	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	        }
 	        else if (!passwordRegex.test(passwordValue)) {
-	            $pwdCheckResult.show().css('color', 'red').text('비밀번호는 하나 이상의 대문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.');
+	            $pwdCheckResult.show().css('color', 'red').text('하나 이상의 대문자, 숫자, 특수문자(!@#$%^&*)를 포함해야 합니다.');
 	            $joinSubmit.prop('disabled', true).css('background-color', '#797979');
 	        }
 	        else {

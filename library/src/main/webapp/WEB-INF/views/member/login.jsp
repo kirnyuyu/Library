@@ -69,8 +69,8 @@
 	    height: 30px;
 	    margin: 0 auto;
 	    display: flex;
-	    justify-content: center; /* 가로축 가운데 정렬 */
-	    align-items: center; /* 세로축 가운데 정렬 (필요 시) */
+	    justify-content: center;
+	    align-items: center;
 	    padding: 0;
 	    margin-top: 20px;
 	    margin-bottom: 60px;
@@ -100,7 +100,7 @@
 	}
 	
 	.findBox > li:first-child::before {
-	    content: ""; /* 첫 번째 항목의 ::before 없애기 */
+	    content: "";
 	}
 </style>
 

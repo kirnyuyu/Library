@@ -90,13 +90,16 @@
 	    float: left;
 	    margin-left: 65px;
 	    margin-right: 15px;
+	    color: #000000;
 	}
 	
-	.menu_5{
-	    width: 140px;
-	    float: left;
-	    margin-left: 0px;
-	    margin-right: 0px;
+	.menu a {
+		color: #000000;
+	}
+	
+	.menu a:hover {
+		text-decoration: none;
+		color: #000000;
 	}
 	
 	.menu_info{

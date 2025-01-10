@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>서울 북마크 :: 로그인</title>
 
 <style>
 	#content{

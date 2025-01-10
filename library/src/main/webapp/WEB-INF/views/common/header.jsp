@@ -155,7 +155,7 @@
             <div class="logo"><a href="${ path }">서울 북마크</a></div>
             <ul class="menubar">
                 <li class="menu">자료검색</li>
-                <li class="menu">서울시 도서관</li>
+                <li class="menu"><a href="${path}/list">서울시 도서관</a></li>
                 <li class="menu">고객센터</li>
                 <li class="menu">나의 북마크</li>
             </ul>

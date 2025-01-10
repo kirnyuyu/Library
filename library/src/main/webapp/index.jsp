@@ -101,7 +101,6 @@
 	    
 	    <div class="content_map">
 	    지도들어가는 부분 <br>
-	    <a href="${path}/libraries" style="font-size:60px;">api</a>
 	    <br><br><br><br><br><br><br><br><br><br><br>
 	    
 	    </div>

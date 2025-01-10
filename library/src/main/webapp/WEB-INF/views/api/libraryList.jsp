@@ -18,6 +18,15 @@
 	    font-size: 15px;
 	}
 	
+	.list_title{
+		width: 1200px;
+		margin: 0 auto;
+		font-size: 30px;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 60px;
+	}
+	
 	#apiInput{
 		width: 300px;
 		height: 30px;
@@ -30,24 +39,67 @@
 		width: 60px;
 	}
 	
-	/* 페이지네이션 스타일 */
-	.pagination {
-		text-align: center;
+	.table_thead {
+		height: 40px;
+	 	line-height: 40px;
+	 	background-color: #67916A;
+	 	font-size: 16px;
+	 	color: #FFFFFF;
 	}
-	.page-link {
-		padding: 5px 10px;
-		text-decoration: none;
-		margin: 0 5px;
-		border: 1px solid #ddd;
-		border-radius: 3px;
+	
+	.th_codeValue {
+		width: 80px;
 	}
-	.current-page {
-		padding: 5px 10px;
-		border: 1px solid #ddd;
-		background-color: #007bff;
-		color: white;
-		border-radius: 3px;
+	
+	.th_lbrryName {
+		width: 200px;
 	}
+	
+	.th_adres {
+		width: 450px;
+	}
+	
+	.th_closeDate {
+		width: 280px;
+	}
+	
+	.th_telNo {
+		width: 150px;
+	}
+	
+    /* 페이징바 */
+    .hdmy-board_page{
+    	width: 1200px;
+    }
+    
+     .pagination {
+     	width:fit-content;
+     	margin: 0 auto;
+     	margin-top: 40px;
+     	margin-bottom: 40px;
+     }
+     
+     .page-item.active .page-link {
+     	background-color: #67916A !important;
+     	border: 1px solid #67916A !important;
+     	color: #FFFFFF !important;
+     	font-weight: bold;
+     	border-radius: 10px;
+	    pointer-events: none;
+	    cursor: not-allowed;
+     }
+     
+     .page-link {
+     	color: #292929 !important;
+     	font-weight: bold;
+     	border-radius: 10px;
+     	margin-right: 10px;
+     }
+     
+     .page-item:last-child .page-link, .page-item:first-child .page-link {
+     	border-radius: 10px !important;
+     }
+     
 </style>
 
 </head>
@@ -55,66 +107,66 @@
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <div id="content">
-        <h2>서울시 도서관 목록</h2>
+        <div class="list_title">
+        	<a>서울시 도서관</a>
+        </div>
 
         <table class="table table-hover">
-            <thead class="table-info">
+            <thead class="table_thead">
                 <tr>
-                    <th width="70px">구명</th>
-                    <th width="160px">도서관명</th>
-                    <th width="250px">주소</th>
-                    <th width="80px">정기 휴관일</th>
-                    <th width="170px">전화번호</th>
+                    <th class="th_codeValue">&nbsp;구명</th>
+                    <th class="th_lbrryName">도서관명</th>
+                    <th class="th_adres">주소</th>
+                    <th class="th_closeDate">정기 휴관일</th>
+                    <th class="th_telNo">전화번호</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- 도서관 목록을 반복해서 출력 -->
 				<c:forEach var="library" items="${libraries}">
 				    <tr>
-				        <!-- VO 필드에 맞게 수정 -->
-				        <td>${library.lbrryName}</td>  <!-- 도서관명 -->
-				        <td>${library.lbrryName}</td>  <!-- 도서관명 -->
-				        <td>${library.adres}</td>      <!-- 주소 -->
-				        <td>${library.closeDate}</td>  <!-- 정기 휴관일 -->
-				        <td>${library.telNo}</td>      <!-- 전화번호 -->
+				        <td>${library.codeValue}</td>
+				        <td>${library.lbrryName}</td>
+				        <td>${library.adres}</td>
+				        <td>${library.closeDate}</td>
+				        <td>${library.telNo}</td>
 				    </tr>
 				</c:forEach>
             </tbody>
         </table>
 
 		<!-- 페이지네이션 -->
-		<div class="pagination">
-		    <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
-		        <c:choose>
-		            <c:when test="${i == pageInfo.currentPage}">
-		                <span class="current-page">${i}</span>  <!-- 현재 페이지 강조 -->
-		            </c:when>
-		            <c:otherwise>
-		                <a href="/library/list?page=${i}" class="page-link">${i}</a>
-		            </c:otherwise>
-		        </c:choose>
-		    </c:forEach>
-		
-		    <!-- 이전 페이지 링크 -->
-		    <c:if test="${pageInfo.startPage > 1}">
-		        <a href="/library/list?page=${pageInfo.startPage - 1}" class="page-link">Previous</a>
-		    </c:if>
-		
-		    <!-- 다음 페이지 링크 -->
-		    <c:if test="${pageInfo.endPage < pageInfo.maxPage}">
-		        <a href="/library/list?page=${pageInfo.endPage + 1}" class="page-link">Next</a>
-		    </c:if>
+        <div class="hdmy-board_page" id="pagination">
+			<ul class="pagination">
+			    <c:if test="${pageInfo.startPage > 1}">
+			         <li class="page-item"><a href="/library/list?page=${pageInfo.startPage - 1}" class="page-link"> < </a></li>
+			    </c:if>
+			    
+			    <c:forEach var="p" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
+			        <c:choose>
+			            <c:when test="${p eq pageInfo.currentPage}">
+			                <li class="page-item active"><a class="page-link">${p}</a></li>
+			            </c:when>
+			            <c:otherwise>
+			                <li class="page-item"><a href="/library/list?page=${p}" class="page-link">${p}</a></li>
+			            </c:otherwise>
+			        </c:choose>
+			    </c:forEach>
+	
+			    <c:if test="${pageInfo.endPage < pageInfo.maxPage}">
+			        <li><a href="/library/list?page=${pageInfo.endPage + 1}" class="page-link"> > </a></li>
+			    </c:if>
+		    </ul>
 		</div>
-
+	</div>
+	
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 
 <script>
 	$(document).ready(function() {
 	    $(".page-link").click(function(e) {
-	        // 기본 동작인 링크 이동을 허용하여 페이지가 새로고침 되도록 함
-	        var page = $(this).text();  // 클릭한 페이지 번호
-	        window.location.href = "/library/list?page=" + page;  // 페이지를 새로 로드
+	        var page = $(this).text();
+	        window.location.href = "/library/list?page=" + page;
 	    });
 	});
 </script>
